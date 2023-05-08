@@ -1,0 +1,23 @@
+.registerbg {
+  background-image: linear-gradient(rgb(224, 223, 223), rgb(224, 223, 223));
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+/* button {
+  background-image: linear-gradient(
+    to left bottom,
+    #e10bc6,
+    #d52cc4,
+    #c93cc1,
+    #be48bd,
+    #b350b8,
+    #a167ce,
+    #8c7ade,
+    #768be9,
+    #33acff,
+    #00caff,
+    #00e4ff,
+    #5ffbf1
+  ); */
+/* } */

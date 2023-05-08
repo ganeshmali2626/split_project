@@ -1,0 +1,169 @@
+<div class="100vh position-relative">
+  <table class="table fixed-top">
+    <thead>
+      <tr>
+        <th class="text-center bg-secondary" scope="col">
+          <div style="margin-left: 300px" class="d-flex justify-content-evenly">
+            {{ groupdata?.name
+            }}<button
+              class="btn btn-primary w-25"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+              <i class="bi bi-wallet2"></i>&nbsp;&nbsp;&nbsp;Split an expense
+            </button>
+            <div>
+              <div class="btn-group">
+                <button
+                  title="CREATE GROUP"
+                  type="button"
+                  class="btn btn-white dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="true"
+                >
+                  Add User
+                </button>
+                <ul class="dropdown-menu">
+                  <li
+                    class="d-flex p-2"
+                    *ngFor="let data of liData; let i = index"
+                    (click)="getDataChek($event, data._id)"
+                  >
+                    <input
+                      type="checkbox"
+                      id="{{ i }}"
+                      [checked]="chekList.includes(data._id)"
+                    />
+                    <label>{{ data.name }}</label>
+                  </li>
+                  <div class="d-flex justify-content-end">
+                    <button (click)="addUser()"  class=" btn btn-sm btn-primary" type="submit">ADD</button></div>
+                </ul>
+              </div>
+              <div class="btn-group">
+                <button
+                  title="CREATE GROUP"
+                  type="button"
+                  class="btn btn-white dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="true"
+                >
+                  Remove User
+                </button>
+                <ul class="dropdown-menu">
+                  <li
+                    class="d-flex p-2"
+                    *ngFor="let data of groupdata?.users; let i = index"
+                    (click)="getDataCheked($event, data._id)"
+                  >
+                    <input
+                      type="checkbox"
+                      id="{{ i }}"
+                      [checked]="chekListid==data._id"
+                    />
+                    <label>{{ data.name }}</label>
+                  </li>
+                  <div class="d-flex justify-content-end"><button (click)="removeUser()"  class=" btn btn-sm btn-primary" type="submit">Remove</button></div>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </th>
+      </tr>
+    </thead>
+  </table>
+  <div *ngIf="expense.length > 0" class="container mt-5">
+    <div *ngFor="let exp of expense">
+      <div [class]="exp.paidBy === userId ? 'd-flex justify-content-end' : ''">
+        <div class="card mt-2" style="width: 10rem">
+          <div class="card-body">
+            <h5 class="card-title">{{ exp?.splitAmounts[0]?.amount }}</h5>
+            <p class="card-text">{{ exp?.description }}</p>
+            <a (click)="payamount(exp._id,exp?.splitAmounts[0]?.amount)" *ngIf="exp.splitBetween.includes(userId)" class="btn btn-primary"
+              >pay</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <form [formGroup]="addexpense" (ngSubmit)="getexpense()">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">
+            <i class="bi bi-wallet2"></i>&nbsp;&nbsp;&nbsp;Split an expense
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div
+          class="modal-body text-center d-flex flex-column justify-content-center align-items-center"
+        >
+          <b>Total</b>
+
+          <input
+            type="number"
+            formControlName="amount"
+            min="0"
+            placeholder="0"
+            class="w-25 text-center"
+          />
+          <input
+            type="text"
+            formControlName="description"
+            placeholder="What's this for"
+            class="w-50 m-2 text-center"
+          />
+
+          <ul>
+            <li
+              class="d-flex p-2"
+              *ngFor="let user of groupdata?.users; let i = index"
+              (click)="getDataChek($event, user._id)"
+            >
+              <input
+                type="checkbox"
+                id="{{ i }}"
+                [checked]="chekList.includes(user._id)"
+              />
+              <label class="mx-3">{{ user.name }}</label>
+            </li>
+            <!-- <li *ngFor=" let user of groupdata?.users">{{user.name}}</li> -->
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="submit"
+            (click)="getexpense()"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+            class="btn btn-primary"
+          >
+            Save changes
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
