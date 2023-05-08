@@ -1,0 +1,13 @@
+<app-navbar (grouparraylist)="addItem($event)"></app-navbar>
+<table class="table">
+  <thead>
+    <tr>
+      <th class="text-center" scope="col">SPLITWISE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr class="border border-black" *ngFor="let groups of groupList">
+      <td [routerLink]="['/home/create-group',groups._id]" class="text-center border border-dark table-active " >{{groups.name}}</td>
+    </tr>
+  </tbody>
+</table>
