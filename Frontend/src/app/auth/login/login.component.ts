@@ -41,6 +41,8 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home/dashboard']);
       },
       error: (err) => {
+        console.log(err);
+
         localStorage.removeItem('login');
         this.toastr.error('', err.error.error);
       },

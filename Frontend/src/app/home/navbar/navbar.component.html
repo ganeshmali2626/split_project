@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="/seller/products/"
-      ><b><i class="bi bi-house-fill"></i>&nbsp;HOME</b></a
+    <div class="navbar-brand" routerLink="/home/dashboard"
+      ><b><i class="bi bi-house-fill"></i>&nbsp;HOME</b></div
     >
 
     <div class="d-flex justify-content-end">
@@ -31,16 +31,16 @@
             />
             <label>{{ data.name }}</label>
           </li>
-          <div class="d-flex justify-content-end"><button (click)="createGroup(titleInput.value)"  class=" btn btn-sm btn-primary" type="submit">CREATE</button></div>
+          <div class="d-flex"><button (click)="createGroup(titleInput.value)"  class=" btn btn-sm btn-primary w-100" type="submit"><b>CREATE</b></button></div>
         </ul>
       </div>
 
       <div class="navbar-nav pe-2">
-        <a
-          class="nav-link active"
+        <div
+          class="nav-link active text-dark"
           aria-current="page"
-          routerLink="/seller/home/myprofile"
-          ><b><i class="bi bi-person-fill"></i>&nbsp;PROFILE</b></a
+          routerLink="/home/profile"
+          ><b><i class="bi bi-person-fill"></i>&nbsp;PROFILE</b></div
         >
       </div>
       <button

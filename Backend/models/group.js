@@ -5,11 +5,17 @@ const userGroupSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  users: [{
+  users: [{id:{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
     required: true
-  }],
+  },
+  roal:{
+    type: String,
+    required: true
+  }
+}
+],
   expenses: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'expense'

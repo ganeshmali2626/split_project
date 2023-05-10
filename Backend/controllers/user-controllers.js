@@ -99,6 +99,15 @@ const usercontroll= async (req,res)=>{
     }
 }
 
+const getoneuser = async (req,res)=>{
+    try{
+    const users = await userdata.findById(JSON.parse(req.params.id)).select('-password');
+    res.json(users);
+    }catch(err){
+        res.json({message:err})
+    }
+}
 
 
-module.exports={postsignup,postlogin,usercontroll};
+
+module.exports={postsignup,postlogin,usercontroll,getoneuser};

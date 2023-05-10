@@ -19,11 +19,15 @@ const expenseSchema = new mongoose.Schema({
     ref: 'user',
     required: true
   },
-  splitBetween: [{
+  splitBetween: [{id:{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user',
     required: true
-  }],
+  },
+paidstatus:{
+     type: String,
+     required: true
+}}],
   splitAmounts: [{
     userId: {
       type: mongoose.Schema.Types.ObjectId,

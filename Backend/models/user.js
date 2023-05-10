@@ -24,8 +24,14 @@ const UserSchema= mongoose.Schema({
         default:Date.now
     },
     balance: {
+       credit: {
         type: Number,
-        default: 0
+        default:0
+        },
+        debit:{
+         type: Number,
+         default:0
+        }
       },
 });
 mongoose.Schema.Types.ObjectId,

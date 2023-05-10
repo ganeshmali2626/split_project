@@ -41,7 +41,7 @@ const getgroups= async (req,res)=>{
     const userIds = req.params.id.split(',');
     const id= new mongoose.Types.ObjectId(JSON.parse(userIds[0]));
     try{
-        const posts = await groupdata.find({ users: { $in: id } })
+        const posts = await groupdata.find({ 'users.id': { $in: [id] } })
         res.json(posts);
     }catch(err){
         res.json({message:err})
@@ -53,7 +53,7 @@ const groupgetSpec = async (req,res)=>{
     console.log("params check",req.params.postId);
     try{
         const post = await groupdata.findById(req.params.postId).populate([
-            {path:"users",
+            {path:"users.id",
         select:"name balance"}
         ]);
         res.json(post);
@@ -78,7 +78,9 @@ const removeUser= async (req,res)=>{
 }
 const addUser=async (req,res)=>{
     
-    const userIdsToAdd = req.body.userid.map((data)=>new mongoose.Types.ObjectId(data));
+    const userIdsToAdd = req.body.userid.map((data)=>{
+        return {id:new mongoose.Types.ObjectId(data.id),roal:data.roal}
+    });
     console.log(userIdsToAdd);
     // const id= new mongoose.Types.ObjectId(req.body.userid);
     try{

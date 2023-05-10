@@ -1,0 +1,83 @@
+<div class="profilebg vh-100">
+  <app-navbar></app-navbar>
+  <div class="bg">
+    <div class="container pt-5 mb-4">
+      <div class="">
+        <div class="row">
+          <div class="col-md-2 col-sm-1"></div>
+          <div class="col-md-8 col-sm-10">
+            <div class="shadow p-3 mb-5 bg-white p-4 rounded">
+              <h1 class="text-center pt-4 pb-3 mt-4">My Profile</h1>
+              <hr class="mx-5 pb-4" />
+              <form>
+                <div class="row">
+                  <div class="col-md-4">
+                    <img
+                      src="../../../assets/noImage.png"
+                      alt="user image"
+                      class="img-thumbnail h-75 w-75"
+                    />
+                  </div>
+                  <div class="col-md-8">
+                    <h2>Name: {{ userData?.name }}</h2>
+                    <p>Email: {{ userData?.email }}</p>
+                    <p>Phone: {{ userData?.phone }}</p>
+                    <div class="d-flex justify-content-between w-50">
+                      <p class="text-success">
+                        credit: {{ userData?.balance.credit }}
+                      </p>
+                      <p class="text-danger">
+                        debit: {{ userData?.balance.debit }}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-center"></div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Button trigger modal -->
+<button
+  type="button"
+  class="btn btn-primary"
+  data-bs-toggle="modal"
+  data-bs-target="#exampleModal"
+>
+  Launch demo modal
+</button>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">...</div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

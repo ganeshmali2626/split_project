@@ -1,13 +1,16 @@
+
 <app-navbar (grouparraylist)="addItem($event)"></app-navbar>
-<table class="table">
-  <thead>
-    <tr>
-      <th class="text-center" scope="col">SPLITWISE</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr class="border border-black" *ngFor="let groups of groupList">
-      <td [routerLink]="['/home/create-group',groups._id]" class="text-center border border-dark table-active " >{{groups.name}}</td>
-    </tr>
-  </tbody>
-</table>
+<div class="bg">
+<div class="container">
+  <ul class="list-group pt-4">
+    <li [routerLink]="['/home/create-group',groups._id]" *ngFor="let groups of groupList" class="list-group-item">
+      <div  class="d-flex align-items-center">
+        <div class="mr-3">
+          <img src="../../../assets/splitlogo.png" alt="Group Logo" class="group-logo">
+        </div>
+        <h4 class="flex-grow-1 text-center group-name">{{ groups.name }}</h4>
+      </div>
+    </li>
+  </ul>
+</div>
+</div>

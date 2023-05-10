@@ -2,6 +2,7 @@ import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { ApiServiceService } from 'src/app/services/api-service.service';
 import { ToastrService } from 'ngx-toastr';
+import { ObservableServiceService } from 'src/app/services/observable-service.service';
 
 @Component({
   selector: 'app-dashbord',
@@ -16,10 +17,11 @@ export class DashbordComponent implements OnInit,OnChanges{
     private rout: Router,
     private toastr: ToastrService,
     private http: ApiServiceService,
+    private obs:ObservableServiceService
   ) {}
 
   ngOnInit(): void {
-
+    this.obs.state.next(true)
   }
 
   ngOnChanges(changes: SimpleChanges): void {

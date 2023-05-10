@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { ApiServiceService } from 'src/app/services/api-service.service';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
+import { ObservableServiceService } from 'src/app/services/observable-service.service';
 
 const SWEETALERT_CONFIG_TOKEN = 'SweetAlertConfigToken';
 @Component({
@@ -43,6 +44,7 @@ export class NavbarComponent implements OnInit {
     private toastr: ToastrService,
     private http: ApiServiceService,
     public cd: ChangeDetectorRef,
+    private obs:ObservableServiceService,
     @Inject(SWEETALERT_CONFIG_TOKEN) private swalConfig: any
   ) {}
   alertfun() {
@@ -85,13 +87,24 @@ export class NavbarComponent implements OnInit {
     }
   }
   createGroup(data: any) {
+    const userList=this.chekList.map((data:any)=>{
+      if(data===JSON.parse(localStorage.getItem('id')!))
+    {
+        return {id:data,roal:"admin"}
+    }else{
+        return {id:data,roal:"user"}
+    }
+    })
+    console.log(localStorage.getItem('id'));
+
     this.http
-      .postData('/group/create', { name: data, users: this.chekList })
+      .postData('/group/create', { name: data, users: userList })
       .subscribe({
         next: (res) => {
           this.toastr.success('CREATED .', 'Successfully!');
           console.log(res);
           this.getgroups();
+          this.obs.state.next(true)
         },
         error: (err) => {
           console.log(err.error);
@@ -101,15 +114,22 @@ export class NavbarComponent implements OnInit {
       });
   }
   getgroups() {
-    this.http.getData(`/group/get/${localStorage.getItem("id")}`).subscribe({
-      next: (res: any) => {
-        console.log(res);
-        this.groupList = res;
-        this.grouparraylist.emit(this.groupList);
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    this.obs.state.subscribe((data) => {
+      if(data)
+      {
+        this.http.getData(`/group/get/${localStorage.getItem("id")}`).subscribe({
+          next: (res: any) => {
+            console.log(res);
+            this.groupList = res;
+            this.grouparraylist.emit(this.groupList);
+            this.obs.state.next(false)
+          },
+          error: (err) => {
+            this.obs.state.next(false)
+            console.log(err);
+          },
+        });
+      }
+    })
   }
 }
