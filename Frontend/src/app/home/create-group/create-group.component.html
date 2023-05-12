@@ -1,19 +1,19 @@
-<div class="100vh position-relative">
+<div class="vh-100"  id="groupbg">
   <table class="table fixed-top">
     <thead>
       <tr>
-        <th class="text-center bg-secondary" scope="col">
-          <div class="d-flex justify-content-between">
-            <div>
+        <th class="text-center bg-secondary " scope="col">
+          <div class="d-flex justify-content-between ">
+            <!-- <div>
               <div class="btn-group">
                 <button
                   title="CREATE GROUP"
                   type="button"
-                  class="btn btn-white dropdown-toggle"
+                  class="btn btn-white dropdown-toggle text-white"
                   data-bs-toggle="dropdown"
                   aria-expanded="true"
                 >
-                  <i class="bi bi-person-plus-fill"></i> ADD
+                  <i class="bi bi-person-plus-fill"></i> &nbsp; <b>ADD</b>
                 </button>
                 <ul class="dropdown-menu">
                   <li
@@ -25,7 +25,7 @@
                       type="checkbox"
                       id="{{ i }}"
                       [checked]="chekList.includes(data._id)"
-                    />
+                    />&nbsp;&nbsp;
                     <label>{{ data.name }}</label>
                   </li>
                   <div class="d-flex">
@@ -40,21 +40,22 @@
                 </ul>
               </div>
               <div
+              role='button'
                 *ngIf="role !== 'admin'"
                 (click)="leavegroup()"
-                class="btn-group"
+                class="btn-group text-white"
               >
-                <i class="bi bi-box-arrow-right"></i> &nbsp;LEAVE
+                <i class="bi bi-box-arrow-right"></i> &nbsp;<b>LEAVE</b>
               </div>
               <div *ngIf="role === 'admin'" class="btn-group">
                 <button
                   title="CREATE GROUP"
                   type="button"
-                  class="btn btn-white dropdown-toggle"
+                  class="btn btn-white dropdown-toggle text-white"
                   data-bs-toggle="dropdown"
                   aria-expanded="true"
                 >
-                  <i class="bi bi-person-dash-fill"></i> REMOVE
+                  <i class="bi bi-person-dash-fill"></i> &nbsp; <b>REMOVE</b>
                 </button>
                 <ul class="dropdown-menu">
                   <li
@@ -66,7 +67,7 @@
                       type="checkbox"
                       id="{{ i }}"
                       [checked]="chekListid == data._id"
-                    />
+                    />&nbsp;&nbsp;
                     <label>{{ data.id.name }}</label>
                   </li>
                   <div class="d-flex">
@@ -80,9 +81,11 @@
                   </div>
                 </ul>
               </div>
-            </div>
-            <b class="text-white">{{ groupdata?.name.toUpperCase() }}</b>
-
+            </div> -->
+            <div role='button' data-bs-toggle="modal" data-bs-target="#exampleModal2" class="d-flex justify-content-evenly align-items-center w-75 px-5"><div class="mx-5"></div><div class="d-flex">
+            <b class="bg-white px-3 py-2  shadow-sm rounded"><i style="font-size:18px" class="fa">&#xf0c0; &nbsp; <b>{{ groupdata?.name?.toUpperCase() }}</b> &nbsp; &#xf0c0;</i> </b>
+          </div>
+        </div>
             <button
               class="btn btn-primary w-25"
               data-bs-toggle="modal"
@@ -90,22 +93,11 @@
             >
               <i class="bi bi-wallet2"></i>&nbsp;&nbsp;&nbsp;Split an expense
             </button>
-
-            <!-- Button trigger modal -->
-            <!-- <button
-              type="button"
-              class="btn btn-primary"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-            >
-              Launch demo modal
-            </button> -->
           </div>
         </th>
       </tr>
     </thead>
   </table>
-
   <div
     class="modal fade"
     id="exampleModal"
@@ -130,24 +122,25 @@
           <div
             class="modal-body text-center d-flex flex-column justify-content-center align-items-center"
           >
-            <b>Total</b>
-
-            <input
-              type="number"
-              formControlName="amount"
-              min="0"
-              placeholder="0"
-              class="w-25 text-center"
-            />
-            <input
-              type="text"
-              formControlName="description"
-              placeholder="What's this for"
-              class="w-50 m-2 text-center"
-            />
-
-            <ul>
-              <li
+            <div class="form-group">
+              <label for="amount">Amount</label>
+              <input type="number" formControlName="amount" min="0"
+              placeholder="0" class="form-control text-center" id="amount"  name="amount" required>
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <input type="text" formControlName="description"  placeholder="What's this for" class="form-control text-center" id="description"  name="description" required>
+            </div>
+            <div class="accordion m-3" style="width: 270px;" id="accordionPanelsStayOpenExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header">
+                  <button style="height: 40px;" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                    SPLITBETWEEN
+                  </button>
+                </h2>
+                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
+                  <div class="accordion-body">
+                    <li
                 class="d-flex p-2"
                 *ngFor="let user of groupdata?.users; let i = index"
                 (click)="getDataChek($event, user.id._id)"
@@ -157,11 +150,15 @@
                   id="{{ i }}"
                   [checked]="chekList.includes(user.id._id)"
                 />
-                <label class="mx-3">{{ user.id.name }}</label>
+                <label class="mx-3"><b>{{ user.id.name }}</b></label>
               </li>
-              <!-- <li *ngFor=" let user of groupdata?.users">{{user.name}}</li> -->
-            </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
+
           <div class="modal-footer">
             <button
               type="button"
@@ -177,7 +174,7 @@
               aria-label="Close"
               class="btn btn-primary"
             >
-              Save changes
+            <i class="bi bi-wallet2"></i>&nbsp;&nbsp; Add Expense
             </button>
           </div>
         </form>
@@ -198,7 +195,7 @@
         <div class="accordion w-25 rounded" id="accordionExample">
           <div class="accordion-item">
             <div class="px-2">
-              <b>PAIDBY: {{ exp.paidBy.name.toUpperCase() }}</b>
+              <b>PAIDBY: {{ exp?.paidBy?.name?.toUpperCase() }}</b>
             </div>
             <div class="px-2">
               <b>AMOUNT: {{ exp?.splitAmounts[0]?.amount }}</b>
@@ -223,9 +220,7 @@
                 [attr.aria-controls]="'collapse-' + i"
                 [attr.aria-expanded]="isAccordionOpen(i) ? 'true' : 'false'"
               >
-                <span
-                  [ngClass]="isAccordionOpen(i) ? 'bi bi-dash' : 'bi bi-plus'"
-                ></span>
+
               </button>
             </h2>
             <div
@@ -235,16 +230,83 @@
               data-bs-parent="#accordionExample"
             >
               <div class="accordion-body">
+                <div class="d-flex justify-content-between "><div>{{exp?.splitBetween.length-exp?.splitAmounts.length+1 +" of "+ exp?.splitBetween.length +" Paid"}}</div><div>Total:&#8377;{{exp.amount}}</div></div>
+
                 <ul *ngFor="let user of exp?.splitBetween" class="list-group">
                   <li class="list-group-item d-flex justify-content-between">
-                    <div>{{ user?.id?.name }}</div>
-                    <div>{{ user?.paidstatus }}</div>
+                    <div><b>{{ user?.id?.name }}</b></div>
+                    <div class="d-flex"><div class="mx-2">&#8377;{{ exp?.splitAmounts[0]?.amount}}</div><div><i
+                      [ngClass]="
+                      user.paidstatus=='true'
+                          ? 'bi-patch-check-fill text-success '
+                          : 'bi-x-octagon-fill text-danger '
+                      "
+                      class="bi"
+                    ></i></div></div>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel"><i style="font-size:18px" class="fa">&#xf0c0; &nbsp;</i> GROUP DETAILS</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <table class="table align-middle mb-0 bg-white">
+            <thead class="bg-light">
+              <tr class="text-center">
+                <th>{{groupdata?.name?.toUpperCase()}} &nbsp; <i class="bi bi-pencil-square"></i></th>
+              </tr>
+            </thead>
+          </table>
+          <table class="table align-middle mb-0 bg-white">
+            <thead class="bg-light">
+              <tr>
+                <th>Name</th>
+                <th>Role</th>
+                <th><button class="btn btn-sm btn-danger"><i class="bi bi-box-arrow-right"></i> &nbsp;LEAVE GROUP</button></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of groupdata?.users">
+                <td>
+                  <div class="d-flex align-items-center">
+                    <img
+                        src="https://mdbootstrap.com/img/new/avatars/8.jpg"
+                        alt=""
+                        style="width: 45px; height: 45px"
+                        class="rounded-circle"
+                        />
+                    <div class="ms-3">
+                      <p class="fw-bold mb-1">{{data?.id?.name}}</p>
+                      <p class="text-muted mb-0">{{data?.id?.email}}</p>
+                    </div>
+                  </div>
+                </td>
+
+                <td>{{data?.roal}}</td>
+                <td>
+                  <!-- <button type="button" class="btn btn-link btn-sm btn-rounded">
+                    Edit
+                  </button> -->
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
       </div>
     </div>
   </div>

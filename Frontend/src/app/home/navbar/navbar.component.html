@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <div class="navbar-brand" routerLink="/home/dashboard"
+    <div class="navbar-brand" role='button' routerLink="/home/dashboard"
       ><b><i class="bi bi-house-fill"></i>&nbsp;HOME</b></div
     >
 
@@ -8,35 +8,95 @@
       <!-- Example single danger button -->
       <div class="btn-group">
         <button
-          title="CREATE GROUP"
-          type="button"
-          class="btn btn-white dropdown-toggle"
-          data-bs-toggle="dropdown"
-          aria-expanded="true"
-        >
-          <i class="bi bi-person-plus-fill"></i>
-        </button>
-        <ul class="dropdown-menu">
-
-          <input #titleInput class="w-100" type="text" placeholder="GROUP NAME">
-          <li
+              class="btn btn-white"
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target="#exampleModal"
+            >
+            <i style="font-size:20px" class="fa"> &#xf0c0; CREATE</i>
+            </button>
+      </div>
+      <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <form>
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">
+                <i style="font-size:20px" class="fa"> &#xf0c0;</i>&nbsp;&nbsp;&nbsp;CREATE NEW GROUP
+              </h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div
+              class="modal-body text-center d-flex flex-column justify-content-center align-items-center"
+            >
+              <div class="form-group">
+                <label for="description">GROUP NAME:</label>
+                <input type="text"   #titleInput   class="form-control text-center" placeholder="GROUP NAME" id="description"  name="description" required>
+              </div>
+              <div class="accordion m-3" style="width: 270px;" id="accordionPanelsStayOpenExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button style="height: 40px;" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                      ADD USERS
+                    </button>
+                  </h2>
+                  <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
+                    <div class="accordion-body">
+                      <li
             class="d-flex p-2"
             *ngFor="let data of liData; let i = index"
             (click)="getDataChek($event, data._id)"
           >
-            <input
+            <b><input
               type="checkbox"
               id="{{ i }}"
               [checked]="chekList.includes(data._id)"
-            />
-            <label>{{ data.name }}</label>
+            />&nbsp;
+            <label>{{ data.name }}</label></b>
           </li>
-          <div class="d-flex"><button (click)="createGroup(titleInput.value)"  class=" btn btn-sm btn-primary w-100" type="submit"><b>CREATE</b></button></div>
-        </ul>
-      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
+            </div>
+
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="submit"
+                (click)="createGroup(titleInput.value)"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+                class="btn btn-primary"
+              >
+              <i style="font-size:20px" class="fa"> &#xf0c0;</i>&nbsp;&nbsp; CREATE
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
       <div class="navbar-nav pe-2">
         <div
+        role='button'
           class="nav-link active text-dark"
           aria-current="page"
           routerLink="/home/profile"

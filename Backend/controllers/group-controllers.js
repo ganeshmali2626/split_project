@@ -53,8 +53,7 @@ const groupgetSpec = async (req,res)=>{
     console.log("params check",req.params.postId);
     try{
         const post = await groupdata.findById(req.params.postId).populate([
-            {path:"users.id",
-        select:"name balance"}
+            {path:"users.id"}
         ]);
         res.json(post);
     }catch(err){

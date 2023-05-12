@@ -105,10 +105,11 @@ export class NavbarComponent implements OnInit {
           console.log(res);
           this.getgroups();
           this.obs.state.next(true)
+          this.chekList=[];
         },
         error: (err) => {
           console.log(err.error);
-
+          this.chekList=[];
           this.toastr.error(err.error.error, 'Somthing Wrong!');
         },
       });

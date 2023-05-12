@@ -85,11 +85,11 @@ const deleteexpense= async (req,res)=>{
         }
         await userdata.updateOne(
             { _id: expense.paidBy },
-            { $inc: { 'balance.credit': -req.body.amount } }
+            { $inc: { 'balance.credit': parseFloat(-req.body.amount).toFixed(2)} }
           );
           await userdata.updateOne(
             { _id: id },
-            { $inc: { 'balance.debit': -req.body.amount } }
+            { $inc: { 'balance.debit': parseFloat(-req.body.amount).toFixed(2) } }
           );
           const index = expense.splitBetween.findIndex(item => item.id.toString() === id.toString());
           console.log(index);
