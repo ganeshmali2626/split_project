@@ -12,12 +12,14 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./create-group.component.css'],
 })
 export class CreateGroupComponent implements OnInit {
-  groupdata: any = [];
+  groupdata: any ;
   chekList: any = [];
   expense: any = [];
   userId: any;
   chekListid: any;
   liData: any;
+  booleanfield:boolean=true;
+  xyz:any=[];
   role:any;
   id={id:JSON.parse(localStorage.getItem('id')!),paidstatus:true}
   openAccordionIndex: number = -1;
@@ -40,6 +42,7 @@ export class CreateGroupComponent implements OnInit {
     this.getgroupdata();
     this.setexpense();
     this.getusers();
+    this.booleanfield=true;
   }
   getgroupdata() {
     this.userId = JSON.parse(localStorage.getItem('id')!);
@@ -49,10 +52,11 @@ export class CreateGroupComponent implements OnInit {
         next: (res: any) => {
           console.log(res);
           this.groupdata = res;
+          this.xyz=this.liData.filter((item:any) => !this.groupdata?.users.some((obj:any) => obj.id?._id === item._id));
+
           const user = this.groupdata.users.find((user:any) => user.id._id === JSON.parse(localStorage.getItem('id')!));
     if (user) {
     this.role = user.roal;
-    console.log(this.role);
 
           }
         },
@@ -69,9 +73,39 @@ export class CreateGroupComponent implements OnInit {
     const foundUser = this.groupdata?.users.find((user:any) => user.id?._id === JSON.parse(localStorage.getItem('id')!));
      console.log(foundUser?._id);
      this.chekListid=foundUser?._id;
-     this.removeUser();
-     this.router.navigate(['/home/dashboard']);
+     Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't leave group!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, leave it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('leave group!', 'successfully');
+        this.removeUser();
+        this.router.navigate(['/home/dashboard']);
+      }
+    });
 
+
+  }
+  editgroupname(data:any)
+  {
+    this.booleanfield=true;
+    this.http
+      .putData(`/group/name/${this.rout.snapshot.paramMap.get('id')}`,{name:data})
+      .subscribe({
+        next: (res: any) => {
+          console.log(res);
+          this.getgroupdata();
+          this.toastr.success( 'Updated Group Name  .', 'Successfully!');
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
   getDataChek(e: any, data: any) {
     e.stopImmediatePropagation();
@@ -167,7 +201,7 @@ export class CreateGroupComponent implements OnInit {
       })
       .subscribe({
         next: (res: any) => {
-          this.toastr.success('Removed .', 'Successfully!');
+          // this.toastr.success('Removed .', 'Successfully!');
           this.getgroupdata();
           console.log(res);
         },
@@ -180,11 +214,28 @@ export class CreateGroupComponent implements OnInit {
     e.stopImmediatePropagation();
     console.log(data);
     this.chekListid = data;
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't remove!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, removed it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('Removed!', 'successfully');
+        this.removeUser();
+      }
+    });
+
   }
   getusers() {
     this.http.getData('/user/group').subscribe({
       next: (res: any) => {
         console.log(res);
+
+
         this.liData = res;
       },
       error: (err) => {

@@ -9,7 +9,7 @@ import { ObservableServiceService } from 'src/app/services/observable-service.se
   templateUrl: './dashbord.component.html',
   styleUrls: ['./dashbord.component.css']
 })
-export class DashbordComponent implements OnInit,OnChanges{
+export class DashbordComponent implements OnInit{
 
   groupList:any;
 
@@ -21,18 +21,27 @@ export class DashbordComponent implements OnInit,OnChanges{
   ) {}
 
   ngOnInit(): void {
+    this.getgroups();
     this.obs.state.next(true)
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-
-  }
-
-  addItem(data:any)
-  {
-    console.log(data);
-    this.groupList=data;
-
-  }
+  getgroups() {
+      this.obs.state.subscribe((data) => {
+        if(data)
+        {
+          this.http.getData(`/group/get/${localStorage.getItem("id")}`).subscribe({
+            next: (res: any) => {
+              console.log(res);
+              this.groupList = res;
+              this.obs.state.next(false)
+            },
+            error: (err) => {
+              this.obs.state.next(false)
+              console.log(err);
+            },
+          });
+        }
+      })
+    }
   }
 

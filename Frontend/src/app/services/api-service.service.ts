@@ -22,8 +22,8 @@ export class ApiServiceService {
   // deleteData(finalUrl:any) {
   //   return this.http.delete(this.baseUrl + finalUrl);
   // }
-  // putData(finalUrl: string, data: any) {
-  //   return this.http.put(this.baseUrl + finalUrl, data)
+  putData(finalUrl: string, data: any) {
+    return this.http.put(this.baseUrl + finalUrl, data)
 
-  // }
+  }
 }

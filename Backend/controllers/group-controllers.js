@@ -100,4 +100,26 @@ const addUser=async (req,res)=>{
     }
         
 }
-module.exports={creategroup,getgroups,groupgetSpec,removeUser,addUser};
+const changeName=async (req,res)=>{
+    try {
+        // const groupId = req.params.groupId;
+        // const { name } = req.body.name;
+    console.log(req.params.groupId+" "+req.body.name);
+        // Find the group by its ID
+        const group = await groupdata.findById(req.params.groupId);
+    
+        if (!group) {
+          return res.status(404).json({ error: 'Group not found' });
+        }
+    
+        // Update the name of the group
+        group.name = req.body.name;
+        await group.save();
+    
+        res.json({ message: 'Group name updated successfully' });
+      } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }   
+}
+module.exports={creategroup,getgroups,groupgetSpec,removeUser,addUser,changeName};

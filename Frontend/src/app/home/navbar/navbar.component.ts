@@ -38,7 +38,6 @@ export class NavbarComponent implements OnInit {
   liData: any;
   chekList: any = [];
   groupList: any;
-  @Output() grouparraylist = new EventEmitter<any>();
   constructor(
     private rout: Router,
     private toastr: ToastrService,
@@ -68,7 +67,7 @@ export class NavbarComponent implements OnInit {
         console.log(err);
       },
     });
-    this.getgroups();
+    // this.getgroups();
   }
   logout() {
     localStorage.removeItem('login');
@@ -103,7 +102,7 @@ export class NavbarComponent implements OnInit {
         next: (res) => {
           this.toastr.success('CREATED .', 'Successfully!');
           console.log(res);
-          this.getgroups();
+          // this.getgroups();
           this.obs.state.next(true)
           this.chekList=[];
         },
@@ -114,23 +113,23 @@ export class NavbarComponent implements OnInit {
         },
       });
   }
-  getgroups() {
-    this.obs.state.subscribe((data) => {
-      if(data)
-      {
-        this.http.getData(`/group/get/${localStorage.getItem("id")}`).subscribe({
-          next: (res: any) => {
-            console.log(res);
-            this.groupList = res;
-            this.grouparraylist.emit(this.groupList);
-            this.obs.state.next(false)
-          },
-          error: (err) => {
-            this.obs.state.next(false)
-            console.log(err);
-          },
-        });
-      }
-    })
-  }
+  // getgroups() {
+  //   this.obs.state.subscribe((data) => {
+  //     if(data)
+  //     {
+  //       this.http.getData(`/group/get/${localStorage.getItem("id")}`).subscribe({
+  //         next: (res: any) => {
+  //           console.log(res);
+  //           this.groupList = res;
+  //           this.grouparraylist.emit(this.groupList);
+  //           this.obs.state.next(false)
+  //         },
+  //         error: (err) => {
+  //           this.obs.state.next(false)
+  //           console.log(err);
+  //         },
+  //       });
+  //     }
+  //   })
+  // }
 }
