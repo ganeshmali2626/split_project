@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const userdata = require('../models/user');
+const groupdata = require('../models/group');
+
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -31,11 +33,34 @@ const postsignup= async(req,res,next)=>{
         phone: req.body.phone,
         password: hash
     })
-    user.save()
+    const data=user.save()
     .then(result=>{
-        res.status(200).json({
-            new_user: result
-        })
+        if (req.body.groupid){
+        
+            async function saveuse(){
+                try{
+                    await groupdata.findOne({ _id: req.body.groupid })
+                     .then(async group => {
+                        const newUsers=[{id:new mongoose.Types.ObjectId(result._id),roal:"user"}]
+                         return await groupdata.findOneAndUpdate(
+                           { _id: req.body.groupid },
+                           { $addToSet: { users: { $each: newUsers } } },
+                           { new: true }
+                         );
+                       })
+                       res.json({message:"Added successfully"})
+                 }catch(err){
+                     res.json({message:err})
+                 }
+            }
+            saveuse()
+        }
+        else{
+            res.status(200).json({
+                new_user: result
+            })
+        }
+        
     })
     .catch(err=>{
         res.status(500).json({

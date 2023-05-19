@@ -259,13 +259,15 @@
               <button
                 (click)="openAccordion(i)"
                 style="height: 10px"
-                class="accordion-button"
+                class="accordion-button collapsed"
                 type="button"
                 data-bs-toggle="collapse"
                 [attr.data-bs-target]="'#collapse-' + i"
                 [attr.aria-controls]="'collapse-' + i"
+
                 [attr.aria-expanded]="isAccordionOpen(i) ? 'true' : 'false'"
               ></button>
+              <!-- [attr.aria-expanded]="isAccordionOpen(i) ? 'true' : 'false'" -->
             </h2>
             <div
               [id]="'collapse-' + i"

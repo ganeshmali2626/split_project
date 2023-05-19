@@ -2,39 +2,82 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const groupdata = require('../models/group');
+const userdata = require('../models/user');
+const nodemailer = require('nodemailer');
+const Mailgen = require('mailgen');
+require('dotenv/config');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-
 const creategroup= async(req,res,next)=>{
-    groupdata.find({name:req.body.name})
-    .exec()
-    .then(group=>{
-        if(group.length>=1)
-        {groupdata
-            return res.status(401).json({
-                error: 'Group already exists',
-            })
-        }
-        else{
+    // console.log(req.body);
+    try {
+        const groupData = req.body;
+        const invitationEmails = [];
+        const groupUsers = [];
     
-    const group = new groupdata({
-        name: req.body.name,
-        users: req.body.users,
-    })
-    group.save()
-    .then(result=>{
-        res.status(200).json({
-            new_group: result
-        })
-    })
-    .catch(err=>{
-        res.status(500).json({
-            error: err
-        })
-    })
-   }
-})
+        for (const userData of groupData.users) {
+          const user = await userdata.findOne({ email: userData.id });
+    
+          if (user) {
+            groupUsers.push({ id: user._id, roal: userData.roal });
+          } else {
+            // Send invitation email here
+            invitationEmails.push(userData.id);
+            
+          }
+        }
+        
+    
+        const userGroup = new groupdata({
+          name: groupData.name,
+          users: groupUsers
+        });
+        console.log(userGroup);
+        const data=await userGroup.save();
+        console.log("data"+data._id);
+        for(const email of invitationEmails) {
+            
+
+            // async..await is not allowed in global scope, must use a wrapper
+            async function main() {
+              // Generate test SMTP service account from ethereal.email
+              // Only needed if you don't have a real mail account for testing
+              let testAccount = await nodemailer.createTestAccount();
+            
+              // create reusable transporter object using the default SMTP transport
+              const transporter = nodemailer.createTransport({
+                host: 'smtp.ethereal.email',
+                port: 587,
+                auth: {
+                    user: 'gaetano.murazik91@ethereal.email',
+                    pass: 'MfDM6qXQMwF8EaDaww'
+                }
+            });
+            
+              // send mail with defined transport object
+              let info = await transporter.sendMail({
+                from: 'gaetano.murazik91@ethereal.email', // sender address
+                to: `${email}` , // list of receivers
+                subject: "Hello ✔", // Subject line
+                text: "Hello world?", // plain text body
+                html: `<b>Hello world?</b><br><a href='http://localhost:4200/auth/mailregister/${data._id}'>Click hear</a>`, // html body
+              });
+            
+              console.log("Message sent: %s", info.messageId);
+              // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+            
+              // Preview only available when sending through an Ethereal account
+              console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+              // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+            }
+            main()
+            
+                    }
+        res.status(200).json({ message: 'Group created successfully' });
+      } catch (error) {
+        res.status(500).json({ error: error.message });
+      }
 }   
   
 const getgroups= async (req,res)=>{
@@ -61,13 +104,16 @@ const groupgetSpec = async (req,res)=>{
     }
 }
 const removeUser= async (req,res)=>{
-    console.log(req.body);
     const id= new mongoose.Types.ObjectId(req.body.userid);
     try{
         await groupdata.findById(req.body.groupid)
     .then(async (group) => {
       group.users.pull(id);
-      return await group.save();
+      if(req.body.roal=='admin')
+      {
+        group.users[0].roal = 'admin';
+      }
+      return await group.save()
     })
       res.json({message:"removed successfully"})
     }catch(err){

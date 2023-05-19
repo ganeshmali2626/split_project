@@ -24,10 +24,10 @@
                     <p>Phone: {{ userData?.phone }}</p>
                     <div class="d-flex justify-content-between w-50">
                       <p class="text-success">
-                        credit: {{ userData?.balance.credit }}
+                        credit: {{ userData?.balance.credit  | number: '1.2-2'}}
                       </p>
                       <p class="text-danger">
-                        debit: {{ userData?.balance.debit }}
+                        debit: {{ userData?.balance.debit | number: '1.2-2' }}
                       </p>
                     </div>
                   </div>

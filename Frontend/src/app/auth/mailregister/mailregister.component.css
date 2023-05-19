@@ -1,0 +1,6 @@
+.registerbg {
+  background-image: linear-gradient(rgb(224, 223, 223), rgb(224, 223, 223));
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

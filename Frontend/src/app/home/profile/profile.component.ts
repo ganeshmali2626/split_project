@@ -18,6 +18,12 @@ export class ProfileComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    if(!this.http.chekstorage())
+    {
+      localStorage.removeItem('login');
+      this.rout.navigate(['auth/login'])
+    }
+
     this.http.getData(`/user/oneuser/${localStorage.getItem('id')}`).subscribe({
       next: (res: any) => {
         console.log(res);

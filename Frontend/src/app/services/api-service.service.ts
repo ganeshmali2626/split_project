@@ -26,4 +26,9 @@ export class ApiServiceService {
     return this.http.put(this.baseUrl + finalUrl, data)
 
   }
+
+  chekstorage()
+  {
+    return localStorage.getItem('login')!=null;
+  }
 }

@@ -39,6 +39,11 @@ export class CreateGroupComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    if(!this.http.chekstorage())
+    {
+      localStorage.removeItem('login');
+      this.router.navigate(['auth/login'])
+    }
     this.getgroupdata();
     this.setexpense();
     this.getusers();
@@ -71,7 +76,7 @@ export class CreateGroupComponent implements OnInit {
     console.log(localStorage.getItem('id'));
 
     const foundUser = this.groupdata?.users.find((user:any) => user.id?._id === JSON.parse(localStorage.getItem('id')!));
-     console.log(foundUser?._id);
+     console.log(foundUser.roal);
      this.chekListid=foundUser?._id;
      Swal.fire({
       title: 'Are you sure?',
@@ -84,7 +89,7 @@ export class CreateGroupComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire('leave group!', 'successfully');
-        this.removeUser();
+        this.removeUser(foundUser.roal);
         this.router.navigate(['/home/dashboard']);
       }
     });
@@ -193,11 +198,12 @@ export class CreateGroupComponent implements OnInit {
       }
     });
   }
-  removeUser() {
+  removeUser(data:string) {
     this.http
       .patchData(`/group/remove`, {
         userid: this.chekListid,
         groupid: this.rout.snapshot.paramMap.get('id'),
+        roal:data,
       })
       .subscribe({
         next: (res: any) => {
@@ -225,7 +231,7 @@ export class CreateGroupComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire('Removed!', 'successfully');
-        this.removeUser();
+        this.removeUser('user');
       }
     });
 

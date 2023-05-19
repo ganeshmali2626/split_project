@@ -21,6 +21,11 @@ export class DashbordComponent implements OnInit{
   ) {}
 
   ngOnInit(): void {
+    if(!this.http.chekstorage())
+    {
+      localStorage.removeItem('login');
+      this.rout.navigate(['auth/login'])
+    }
     this.getgroups();
     this.obs.state.next(true)
   }

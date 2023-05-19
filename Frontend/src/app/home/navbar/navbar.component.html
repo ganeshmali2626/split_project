@@ -40,36 +40,22 @@
             <div
               class="modal-body text-center d-flex flex-column justify-content-center align-items-center"
             >
-              <div class="form-group">
-                <label for="description">GROUP NAME:</label>
-                <input type="text"   #titleInput   class="form-control text-center" placeholder="GROUP NAME" id="description"  name="description" required>
-              </div>
-              <div class="accordion m-3" style="width: 270px;" id="accordionPanelsStayOpenExample">
-                <div class="accordion-item">
-                  <h2 class="accordion-header">
-                    <button style="height: 40px;" class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                      ADD USERS
-                    </button>
-                  </h2>
-                  <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
-                    <div class="accordion-body">
-                      <li
-            class="d-flex p-2"
-            *ngFor="let data of liData; let i = index"
-            (click)="getDataChek($event, data._id)"
-          >
-            <b><input
-              type="checkbox"
-              id="{{ i }}"
-              [checked]="chekList.includes(data._id)"
-            />&nbsp;
-            <label>{{ data.name }}</label></b>
-          </li>
-                    </div>
-                  </div>
+              <div class="form-group" [formGroup]="login">
+                <div class="form-group">
+                  <label for="description">GROUP NAME:</label>
+                  <input type="text" formControlName="name"  class="form-control text-center" placeholder="GROUP NAME"  required>
                 </div>
+                <label for="description">ADD NEW USER:</label>
+                <ng-container formArrayName="users">
+                  <div *ngFor="let userControl of usersArray.controls; index as i">
+                    <input type="text" [formControlName]="i" class="form-control text-center mt-2" value="" placeholder="ADD NEW USER" required>
+                    <div *ngIf="isEmailNotUnique(userControl.value, i)" class="text-danger">Email must be unique.</div>
+                  </div>
+                </ng-container>
+                <button (click)="onAddUser()" [disabled]="login.invalid" class="btn btn-primary btn-sm btn-add mt-3">
+                  <i>+</i>ADD NEW USER
+                </button>
               </div>
-
             </div>
 
             <div class="modal-footer">
@@ -82,9 +68,10 @@
               </button>
               <button
                 type="submit"
-                (click)="createGroup(titleInput.value)"
+                (click)="createGroup()"
                 data-bs-dismiss="modal"
                 aria-label="Close"
+                [disabled]="login.invalid"
                 class="btn btn-primary"
               >
               <i style="font-size:20px" class="fa"> &#xf0c0;</i>&nbsp;&nbsp; CREATE
