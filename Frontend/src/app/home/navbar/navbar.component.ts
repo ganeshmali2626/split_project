@@ -39,7 +39,7 @@ export class NavbarComponent implements OnInit {
   liData: any;
   chekList: any = [];
   groupList: any;
-  status!:boolean;
+  status!: boolean;
   constructor(
     private rout: Router,
     private toastr: ToastrService,
@@ -72,12 +72,13 @@ export class NavbarComponent implements OnInit {
       new FormControl(null, [Validators.required, Validators.email])
     );
   }
-   isEmailNotUnique(email: string, currentIndex: number): boolean {
-    const emailControls = this.usersArray.controls.filter((control, index) => index !== currentIndex);
-    this.status=emailControls.some(control => control.value === email);
+  isEmailNotUnique(email: string, currentIndex: number): boolean {
+    const emailControls = this.usersArray.controls.filter(
+      (control, index) => index !== currentIndex
+    );
+    this.status = emailControls.some((control) => control.value === email);
 
-
-    return emailControls.some(control => control.value === email);
+    return emailControls.some((control) => control.value === email);
   }
   ngOnInit(): void {
     if (!this.http.chekstorage()) {
@@ -138,6 +139,8 @@ export class NavbarComponent implements OnInit {
             },
             error: (err) => {
               console.log(err.error);
+              console.log('new test git');
+
               this.login.reset();
               this.toastr.error(err.error.error, 'Somthing Wrong!');
             },
