@@ -6,12 +6,12 @@
           <div class="d-flex justify-content-between">
             <div class="mx-3 text-light">
               <div class="mr-3">
-                <img
-                  src="../../../assets/splitlogo.png"
-                  alt="Group Logo"
-                  class="group-logo"
-                  style="height: 45px; width: 45px"
-                />
+                <ngx-avatar
+                [size]="50"
+                *ngIf="groupdata"
+                [src]="groupdata?.avatar"
+                [value]=" groupdata?.name.charAt(0)"
+              ></ngx-avatar>
               </div>
             </div>
             <div
