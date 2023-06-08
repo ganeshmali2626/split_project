@@ -26,11 +26,14 @@
           <h5>{{userData?.name}}</h5>
           <span>{{ userData?.email }}</span>
         </div>
-        <div class="">
+        <div >
+            <button *ngIf="this.edit" class="btn btn-primary" (click)="editvalue()">
+              <i class="bi bi-pencil"></i> Edit
+            </button>
         </div>
       </div>
       <table class="table table-striped mt-3">
-        <tbody>
+        <tbody *ngIf="this.edit">
           <tr>
             <th scope="row" width="20%">Name</th>
             <td>
@@ -55,38 +58,71 @@
           </tr>
         </tbody>
       </table>
+      <form [formGroup]="edituserdetails" (ngSubmit)="collection()" *ngIf="!this.edit">
+        <div class="row mb-3">
+          <label class="col-sm-4 col-form-label">Name :</label>
+          <div class="col-sm-6">
+            <input
+              type="text"
+              [value]=""
+              class="form-control"
+              formControlName="name"
+
+            />
+
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label class="col-sm-4 col-form-label">Phone :</label>
+          <div class="col-sm-6">
+            <input
+              type="number"
+              class="form-control"
+              formControlName="phone"
+
+            />
+
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label class="col-sm-4 col-form-label">Email :</label>
+          <div class="col-sm-6">
+            <input
+              type="email"
+              class="form-control"
+              formControlName="email"
+
+            />
+
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-sm-8 offset-sm-4">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="edituserdetails.invalid"
+            >
+            <i class="fa fa-floppy-o" aria-hidden="true"></i>&nbsp;
+              Save changes
+            </button>
+            <button
+              type="submit"
+              class="btn btn-secondary ms-2"
+              (click)="this.edit = !this.edit"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+       </form>
     </div>
   </div>
   <!-- Edit form -->
 
 </div>
-              <!-- <h1 class="text-center pt-4 pb-3 mt-4">My Profile</h1>
-              <hr class="mx-5 pb-4" />
-              <form>
-                <div class="row">
-                  <div class="col-md-4">
-                    <img
-                      src="../../../assets/noImage.png"
-                      alt="user image"
-                      class="img-thumbnail h-75 w-75"
-                    />
-                  </div>
-                  <div class="col-md-8">
-                    <h2>Name: {{ userData?.name }}</h2>
-                    <p>e-mail: {{ userData?.email }}</p>
-                    <p>Phone: {{ userData?.phone }}</p>
-                    <div class="d-flex justify-content-between w-50">
-                      <p class="text-success">
-                        credit: {{ userData?.balance.credit  | number: '1.2-2'}}
-                      </p>
-                      <p class="text-danger">
-                        debit: {{ userData?.balance.debit | number: '1.2-2' }}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-flex justify-content-center"></div>
-              </form> -->
+
             </div>
           </div>
         </div>

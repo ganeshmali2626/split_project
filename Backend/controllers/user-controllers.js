@@ -133,6 +133,23 @@ const getoneuser = async (req,res)=>{
     }
 }
 
+const editdetails = async (req,res)=>{
+    try {
+        
+        const { name, phone, email } = req.body;
+        
+        const updatedUser = await userdata.findByIdAndUpdate(JSON.parse(req.params.id), { name, phone, email }, { new: true });
+      
+        if (!updatedUser) {
+          return res.status(404).json({ message: 'User not found' });
+        }
+      
+        res.json(updatedUser);
+      } catch (error) {
+        res.status(500).json({ message: 'Server Error' });
+      }
+}
 
 
-module.exports={postsignup,postlogin,usercontroll,getoneuser};
+
+module.exports={postsignup,postlogin,usercontroll,getoneuser,editdetails};
