@@ -2,86 +2,18 @@
   <table class="table fixed-top">
     <thead>
       <tr>
-        <th class="text-center bg-secondary" scope="col">
+        <th class="text-center bg-dark" scope="col">
           <div class="d-flex justify-content-between">
-            <!-- <div>
-              <div class="btn-group">
-                <button
-                  title="CREATE GROUP"
-                  type="button"
-                  class="btn btn-white dropdown-toggle text-white"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="true"
-                >
-                  <i class="bi bi-person-plus-fill"></i> &nbsp; <b>ADD</b>
-                </button>
-                <ul class="dropdown-menu">
-                  <li
-                    class="d-flex p-2"
-                    *ngFor="let data of liData; let i = index"
-                    (click)="getDataChek($event, data._id)"
-                  >
-                    <input
-                      type="checkbox"
-                      id="{{ i }}"
-                      [checked]="chekList.includes(data._id)"
-                    />&nbsp;&nbsp;
-                    <label>{{ data.name }}</label>
-                  </li>
-                  <div class="d-flex">
-                    <button
-                      (click)="addUser()"
-                      class="btn btn-sm btn-primary w-100"
-                      type="submit"
-                    >
-                      <b>ADD</b>
-                    </button>
-                  </div>
-                </ul>
+            <div class="mx-3 text-light">
+              <div class="mr-3">
+                <img
+                  src="../../../assets/splitlogo.png"
+                  alt="Group Logo"
+                  class="group-logo"
+                  style="height: 45px; width: 45px"
+                />
               </div>
-              <div
-              role='button'
-                *ngIf="role !== 'admin'"
-                (click)="leavegroup()"
-                class="btn-group text-white"
-              >
-                <i class="bi bi-box-arrow-right"></i> &nbsp;<b>LEAVE</b>
-              </div>
-              <div *ngIf="role === 'admin'" class="btn-group">
-                <button
-                  title="CREATE GROUP"
-                  type="button"
-                  class="btn btn-white dropdown-toggle text-white"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="true"
-                >
-                  <i class="bi bi-person-dash-fill"></i> &nbsp; <b>REMOVE</b>
-                </button>
-                <ul class="dropdown-menu">
-                  <li
-                    class="d-flex p-2"
-                    *ngFor="let data of groupdata?.users; let i = index"
-                    (click)="getDataCheked($event, data._id)"
-                  >
-                    <input
-                      type="checkbox"
-                      id="{{ i }}"
-                      [checked]="chekListid == data._id"
-                    />&nbsp;&nbsp;
-                    <label>{{ data.id.name }}</label>
-                  </li>
-                  <div class="d-flex">
-                    <button
-                      (click)="removeUser()"
-                      class="btn btn-sm btn-primary w-100"
-                      type="submit"
-                    >
-                      <b>Remove</b>
-                    </button>
-                  </div>
-                </ul>
-              </div>
-            </div> -->
+            </div>
             <div
               role="button"
               data-bs-toggle="modal"
@@ -89,14 +21,10 @@
               (click)="booleanfield = true"
               class="d-flex justify-content-evenly align-items-center w-75 px-5"
             >
-              <div class="mx-5"></div>
+              <div class="text-light"></div>
               <div class="d-flex">
-                <b class="bg-white px-3 py-2 shadow-sm rounded"
-                  ><i style="font-size: 18px" class="fa"
-                    >&#xf0c0; &nbsp;
-                    <b>{{ groupdata?.name?.toUpperCase() }}</b> &nbsp;
-                    &#xf0c0;</i
-                  >
+                <b class="bg-white px-3 py-2 shadow-sm rounded">
+                  <b>{{ groupdata?.name?.toUpperCase() }}</b> &nbsp;
                 </b>
               </div>
             </div>
@@ -119,7 +47,7 @@
     aria-labelledby="exampleModalLabel"
     aria-hidden="true"
   >
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog">
       <div class="modal-content">
         <form [formGroup]="addexpense" (ngSubmit)="getexpense()">
           <div class="modal-header">
@@ -133,95 +61,115 @@
               aria-label="Close"
             ></button>
           </div>
-          <div
-            class="modal-body text-center d-flex flex-column justify-content-center align-items-center"
-          >
-            <div class="form-group">
-              <label for="amount">Amount</label>
-              <input
-                type="number"
-                formControlName="amount"
-                min="0"
-                placeholder="0"
-                class="form-control text-center"
-                id="amount"
-                name="amount"
-                required
-              />
+          <div class="modal-body text-center d-flex flex-column">
+            <div class="row mb-3">
+              <!--begin::Col-->
+              <div class="col-4 fv-row fv-plugins-icon-container">Amount :</div>
+              <div class="col-8 fv-row fv-plugins-icon-container">
+                <input
+                  class="form-control"
+                  type="number"
+                  formControlName="amount"
+                  min="0"
+                  id="amount"
+                  name="amount"
+                  placeholder="0"
+                  required
+                />
+              </div>
+              <!--end::Col-->
             </div>
-            <div class="form-group">
-              <label for="description">Description</label>
-              <input
-                type="text"
-                formControlName="description"
-                placeholder="What's this for"
-                class="form-control text-center"
-                id="description"
-                name="description"
-                required
-              />
+            <div class="row mb-3">
+              <!--begin::Col-->
+              <div class="col-4 fv-row fv-plugins-icon-container">
+                Description :
+              </div>
+              <div class="col-8 fv-row fv-plugins-icon-container">
+                <input
+                  class="form-control"
+                  ype="text"
+                  formControlName="description"
+                  placeholder="What's this for"
+                  id="description"
+                  name="description"
+                  required
+                />
+              </div>
+              <!--end::Col-->
             </div>
-            <div
-              class="accordion m-3"
-              style="width: 270px"
-              id="accordionPanelsStayOpenExample"
-            >
-              <div class="accordion-item">
-                <h2 class="accordion-header">
-                  <button
-                    style="height: 40px"
-                    class="accordion-button"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#panelsStayOpen-collapseOne"
-                    aria-expanded="true"
-                    aria-controls="panelsStayOpen-collapseOne"
-                  >
-                    SPLITBETWEEN
-                  </button>
-                </h2>
+            <div class="row mb-3">
+              <!--begin::Col-->
+              <div class="col-4 fv-row fv-plugins-icon-container">
+                SPLITBETWEEN :
+              </div>
+              <div class="col-8 fv-row fv-plugins-icon-container">
                 <div
-                  id="panelsStayOpen-collapseOne"
-                  class="accordion-collapse collapse"
+                  class="accordion"
+                  style="width: 300px"
+                  id="accordionPanelsStayOpenExample"
                 >
-                  <div class="accordion-body">
-                    <li
-                      class="d-flex p-2"
-                      *ngFor="let user of groupdata?.users; let i = index"
-                      (click)="getDataChek($event, user.id._id)"
-                    >
-                      <input
-                        type="checkbox"
-                        id="{{ i }}"
-                        [checked]="chekList.includes(user.id._id)"
-                      />
-                      <label class="mx-3"
-                        ><b>{{ user.id.name }}</b></label
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button
+                        style="height: 40px"
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#panelsStayOpen-collapseOne"
+                        aria-expanded="true"
+                        aria-controls="panelsStayOpen-collapseOne"
                       >
-                    </li>
+                        SPLITBETWEEN
+                      </button>
+                    </h2>
+                    <div
+                      id="panelsStayOpen-collapseOne"
+                      class="accordion-collapse collapse"
+                    >
+                      <div class="accordion-body">
+                        <li
+                          class="d-flex p-2"
+                          *ngFor="let user of groupdata?.users; let i = index"
+                          (click)="getDataChek($event, user.id._id)"
+                        >
+                          <input
+                            type="checkbox"
+                            id="{{ i }}"
+                            [checked]="chekList.includes(user.id._id)"
+                          />
+                          <label class="mx-3"
+                            ><b>{{ user.id.name }}</b></label
+                          >
+                        </li>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
+              <!--end::Col-->
             </div>
           </div>
 
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              data-bs-dismiss="modal"
-            >
-              Close
-            </button>
-            <button
-              type="submit"
-              (click)="getexpense()"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-              class="btn btn-primary"
-            >
-              <i class="bi bi-wallet2"></i>&nbsp;&nbsp; Add Expense
-            </button>
+          <div class="d-flex gap-2 ps-3 mb-3">
+            <div>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                (click)="getexpense()"
+                data-bs-dismiss="modal"
+              >
+                <i class="bi bi-wallet2"></i>&nbsp;&nbsp; Add Expense
+              </button>
+            </div>
+            <div>
+              <button
+                type="button"
+                class="btn btn-outline-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         </form>
       </div>
@@ -240,20 +188,25 @@
       >
         <div class="accordion w-25 rounded" id="accordionExample">
           <div class="accordion-item">
-            <div class="px-2">
-              <b>PAIDBY: {{ exp?.paidBy?.name?.toUpperCase() }}</b>
+            <div class="px-3 pt-3 pb-2">
+              <div class="mb-1">
+                <b>PAIDBY: {{ exp?.paidBy?.name?.toUpperCase() }}</b>
+              </div>
+              <div class="mb-1">
+                <b>AMOUNT: {{ exp?.splitAmounts[0]?.amount }}</b>
+              </div>
+              <div><b>DESCRIPTION: </b> {{ exp?.description }}</div>
             </div>
-            <div class="px-2">
-              <b>AMOUNT: {{ exp?.splitAmounts[0]?.amount }}</b>
-            </div>
-            <div class="px-2"><b>DESCRIPTION: </b> {{ exp?.description }}</div>
 
-            <a
-              (click)="payamount(exp._id, exp?.splitAmounts[0]?.amount)"
-              *ngIf="checkStatus(exp?.splitBetween)"
-              class="btn btn-sm btn-primary m-2 w-25"
-              >pay</a
-            >
+            <div class="d-flex justify-content-end">
+              <button
+                (click)="payamount(exp._id, exp?.splitAmounts[0]?.amount)"
+                *ngIf="checkStatus(exp?.splitBetween)"
+                class="btn btn-outline-primary w-25 mx-5 my-2"
+              >
+                pay
+              </button>
+            </div>
 
             <h2 class="accordion-header">
               <button
@@ -264,7 +217,6 @@
                 data-bs-toggle="collapse"
                 [attr.data-bs-target]="'#collapse-' + i"
                 [attr.aria-controls]="'collapse-' + i"
-
                 [attr.aria-expanded]="isAccordionOpen(i) ? 'true' : 'false'"
               ></button>
               <!-- [attr.aria-expanded]="isAccordionOpen(i) ? 'true' : 'false'" -->
@@ -329,10 +281,7 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">
-            <i style="font-size: 18px" class="fa">&#xf0c0; &nbsp;</i> GROUP
-            DETAILS
-          </h1>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">GROUP DETAILS</h1>
           <button
             type="button"
             class="btn-close"
@@ -344,53 +293,51 @@
           <table class="table align-middle mb-0 bg-white">
             <thead class="bg-light">
               <tr>
-                <th class="d-flex justify-content-center border-0">
-                  <div style="margin-left: 50px">
-                    <img
-                      src="../../../assets/splitlogo.png"
-                      alt=""
-                      style="width: 45px; height: 45px"
-                      class="rounded-circle"
-                    />
+                <th class="border-0 w-50">
+                  <div class="d-flex gap-3">
+                    <div>
+                      <ngx-avatar
+                        [size]="50"
+                        *ngIf="groupdata"
+                        [src]="groupdata?.avatar"
+                        [value]="groupdata?.name.charAt(0)"
+                      ></ngx-avatar>
+                    </div>
+                    <div *ngIf="booleanfield" class="w-25 mt-3">
+                      <div>
+                        {{ groupdata?.name?.toUpperCase() }} &nbsp;
+                        <i
+                          (click)="booleanfield = false"
+                          role="button"
+                          class="bi bi-pencil-square"
+                        ></i>
+                      </div>
+                    </div>
+                    <div *ngIf="!booleanfield" class="d-flex">
+                      <input
+                        type="text"
+                        #inputvalue
+                        class="input-group-text"
+                        value="{{ groupdata?.name }}"
+                      />&nbsp;
+                      <b
+                        role="button"
+                        (click)="editgroupname(inputvalue.value)"
+                        data-bs-dismiss="modal"
+                        class="text-success fs-5"
+                        ><i class="bi bi-check-lg"></i></b
+                      >&nbsp;&nbsp;&nbsp;
+                      <div
+                        role="button"
+                        (click)="booleanfield = true"
+                        class="text-danger fs-5"
+                      >
+                        X
+                      </div>
+                    </div>
                   </div>
                 </th>
-              </tr>
-              <tr class="text-center">
-                <th class="d-flex justify-content-evenly">
-                  <div class="w-25"></div>
-
-                  <div *ngIf="booleanfield" class="w-25">
-                    <div>
-                      {{ groupdata?.name?.toUpperCase() }} &nbsp;
-                      <i
-                        (click)="booleanfield = false"
-                        role="button"
-                        class="bi bi-pencil-square"
-                      ></i>
-                    </div>
-                  </div>
-                  <div *ngIf="!booleanfield" class="d-flex">
-                    <input
-                      type="text"
-                      #inputvalue
-                      class="input-group-text"
-                      value="{{ groupdata?.name }}"
-                    />&nbsp;
-                    <b
-                      role="button"
-                      (click)="editgroupname(inputvalue.value)"
-                      data-bs-dismiss="modal"
-                      class="text-success fs-5"
-                      ><i class="bi bi-check-lg"></i></b
-                    >&nbsp;&nbsp;&nbsp;
-                    <div
-                      role="button"
-                      (click)="booleanfield = true"
-                      class="text-danger fs-5"
-                    >
-                      X
-                    </div>
-                  </div>
+                <th class="d-flex justify-content-end gap-2 border-0">
                   <div>
                     <button
                       (click)="leavegroup()"
@@ -400,17 +347,15 @@
                       <i class="bi bi-box-arrow-right"></i> &nbsp;LEAVE GROUP
                     </button>
                   </div>
-                </th>
-              </tr>
-              <tr class="text-center">
-                <th class="d-flex justify-content-evenly">
-                  <div
-                    type="button"
-                    class="text-primary"
-                    data-bs-toggle="modal"
-                    data-bs-target="#exampleModal3"
-                  >
-                    + ADD NEW USER
+                  <div>
+                    <button
+                      type="button"
+                      class="btn btn-sm btn-primary text-white"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal3"
+                    >
+                      + ADD NEW USER
+                    </button>
                   </div>
                 </th>
               </tr>
@@ -428,12 +373,12 @@
               <tr *ngFor="let data of groupdata?.users">
                 <td>
                   <div class="d-flex align-items-center">
-                    <img
-                      src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                      alt=""
-                      style="width: 45px; height: 45px"
-                      class="rounded-circle"
-                    />
+                    <ngx-avatar
+                      [size]="50"
+                      *ngIf="data"
+                      [src]="data?.id?.avatar"
+                      [value]="data?.id?.name.charAt(0)"
+                    ></ngx-avatar>
                     <div class="ms-3">
                       <p class="fw-bold mb-1">{{ data?.id?.name }}</p>
                       <p class="text-muted mb-0">{{ data?.id?.email }}</p>
@@ -498,12 +443,12 @@
                             [checked]="chekList.includes(data._id)"
                           />&nbsp;&nbsp; &nbsp; &nbsp;
                           <div class="d-flex align-items-center">
-                            <img
-                              src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                              alt=""
-                              style="width: 45px; height: 45px"
-                              class="rounded-circle"
-                            />
+                            <ngx-avatar
+                              [size]="50"
+                              *ngIf="data"
+                              [src]="data?.avatar"
+                              [value]="data?.name.charAt(0)"
+                            ></ngx-avatar>
                             <div class="ms-3">
                               <div>
                                 <p class="fw-bold mb-1">{{ data?.name }}</p>

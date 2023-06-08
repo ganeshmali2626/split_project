@@ -7,6 +7,7 @@ import { DashbordComponent } from './dashbord/dashbord.component';
 import { CreateGroupComponent } from './create-group/create-group.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileComponent } from './profile/profile.component';
+import { AvatarModule } from 'ngx-avatar';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { ProfileComponent } from './profile/profile.component';
     CommonModule,
     HomeRoutingModule,
     ReactiveFormsModule,
+    AvatarModule,
     FormsModule
   ]
 })

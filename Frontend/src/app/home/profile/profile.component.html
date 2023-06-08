@@ -1,5 +1,5 @@
-<div class="profilebg vh-100">
-  <app-navbar></app-navbar>
+<app-navbar></app-navbar>
+<div class="profilebg vh-90">
   <div class="bg">
     <div class="container pt-5 mb-4">
       <div class="">
@@ -7,7 +7,60 @@
           <div class="col-md-2 col-sm-1"></div>
           <div class="col-md-8 col-sm-10">
             <div class="shadow p-3 mb-5 bg-white p-4 rounded">
-              <h1 class="text-center pt-4 pb-3 mt-4">My Profile</h1>
+
+<h4>My profile</h4>
+<div class="my-4">
+  <!-- Display contents -->
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex align-items-center justify-content-between">
+        <div class="">
+          <ngx-avatar
+            [size]="80"
+            *ngIf="userData"
+            [src]="userData?.avatar"
+            [value]="userData?.name.charAt(0)"
+          ></ngx-avatar>
+        </div>
+        <div class="flex-grow-1 ms-3">
+          <h5>{{userData?.name}}</h5>
+          <span>{{ userData?.email }}</span>
+        </div>
+        <div class="">
+        </div>
+      </div>
+      <table class="table table-striped mt-3">
+        <tbody>
+          <tr>
+            <th scope="row" width="20%">Name</th>
+            <td>
+              {{userData?.name}}
+            </td>
+          </tr>
+          <tr>
+            <th>Email</th>
+            <td>{{ userData?.email }}</td>
+          </tr>
+          <tr>
+            <th>Mobile no</th>
+            <td>{{ userData?.phone }}</td>
+          </tr>
+          <tr>
+            <th>Credit</th>
+            <td class="text-success">{{ userData?.balance.credit  | number: '1.2-2'}}</td>
+          </tr>
+          <tr>
+            <th>Debit</th>
+            <td class="text-danger">{{ userData?.balance.debit | number: '1.2-2' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- Edit form -->
+
+</div>
+              <!-- <h1 class="text-center pt-4 pb-3 mt-4">My Profile</h1>
               <hr class="mx-5 pb-4" />
               <form>
                 <div class="row">
@@ -33,7 +86,7 @@
                   </div>
                 </div>
                 <div class="d-flex justify-content-center"></div>
-              </form>
+              </form> -->
             </div>
           </div>
         </div>
@@ -41,6 +94,31 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

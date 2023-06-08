@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ApiServiceService } from './services/api-service.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
+import { AvatarModule } from 'ngx-avatar';
 import { ToastrModule } from 'ngx-toastr';
 import { HederInterceptorInterceptor } from './interseptor/heder-interceptor.interceptor';
 import { SpinnerComponent } from './spinner/spinner.component';
@@ -18,12 +18,13 @@ import { SpinnerComponent } from './spinner/spinner.component';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    AvatarModule,
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-
   ],
-  providers: [ApiServiceService,
+  providers: [
+    ApiServiceService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HederInterceptorInterceptor,

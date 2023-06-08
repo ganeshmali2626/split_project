@@ -1,5 +1,5 @@
-<app-navbar ></app-navbar>
-<div class="bg ">
+<app-navbar></app-navbar>
+<div class="bg">
   <div class="container">
     <ul class="list-group pt-4">
       <li
@@ -9,11 +9,12 @@
       >
         <div class="d-flex align-items-center">
           <div class="mr-3">
-            <img
-              src="../../../assets/splitlogo.png"
-              alt="Group Logo"
-              class="group-logo"
-            />
+            <ngx-avatar
+            [size]="50"
+            *ngIf="groups"
+            [src]="groups?.avatar"
+            [value]=" groups?.name.charAt(0)"
+          ></ngx-avatar>
           </div>
           <h4 class="flex-grow-1 text-center group-name">{{ groups.name }}</h4>
         </div>

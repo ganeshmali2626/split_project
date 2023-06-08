@@ -1,94 +1,135 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-dark ">
   <div class="container-fluid">
-    <div class="navbar-brand" role='button' routerLink="/home/dashboard"
-      ><b><i class="bi bi-house-fill"></i>&nbsp;HOME</b></div
-    >
+    <div class="navbar-brand text-light" role="button" routerLink="/home/dashboard">
+      <b><i class="bi bi-house-fill"></i>&nbsp;HOME</b>
+    </div>
 
     <div class="d-flex justify-content-end">
-      <!-- Example single danger button -->
-      <div class="btn-group">
-        <button
-              class="btn btn-white"
-              type="button"
-              data-bs-toggle="modal"
-              data-bs-target="#exampleModal"
-            >
-            <i style="font-size:20px" class="fa"> &#xf0c0; CREATE</i>
-            </button>
+      <div
+        class="navbar-brand text-light"
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#exampleModal"
+      >
+        <b ><i class="bi bi-people "></i>&nbsp; CREATE</b>
       </div>
       <div
-      class="modal fade"
-      id="exampleModal"
-      tabindex="-1"
-      aria-labelledby="exampleModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-          <form>
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">
-                <i style="font-size:20px" class="fa"> &#xf0c0;</i>&nbsp;&nbsp;&nbsp;CREATE NEW GROUP
-              </h1>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div
-              class="modal-body text-center d-flex flex-column justify-content-center align-items-center"
-            >
-              <div class="form-group" [formGroup]="login">
-                <div class="form-group">
-                  <label for="description">GROUP NAME:</label>
-                  <input type="text" formControlName="name"  class="form-control text-center" placeholder="GROUP NAME"  required>
-                </div>
-                <label for="description">ADD NEW USER:</label>
-                <ng-container formArrayName="users">
-                  <div *ngFor="let userControl of usersArray.controls; index as i">
-                    <input type="text" [formControlName]="i" class="form-control text-center mt-2" value="" placeholder="ADD NEW USER" required>
-                    <div *ngIf="isEmailNotUnique(userControl.value, i)" class="text-danger">Email must be unique.</div>
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog">
+          <div class="modal-content">
+            <form>
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                  CREATE NEW GROUP
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div class="form-group" [formGroup]="login">
+                  <div class="row mb-3">
+                    <!--begin::Col-->
+                    <div class="col-4 fv-row fv-plugins-icon-container">
+                      GROUP NAME:
+                    </div>
+                    <div class="col-8 fv-row fv-plugins-icon-container">
+                      <input
+                        class="form-control"
+                        formControlName="name"
+                        placeholder="GROUP NAME"
+                        required
+                      />
+                      <div
+                        class="fv-plugins-message-container invalid-feedback"
+                      >
+                        <small class="text-danger">Tax Name is required</small>
+                      </div>
+                    </div>
+                    <!--end::Col-->
                   </div>
-                </ng-container>
-                <button (click)="onAddUser()" [disabled]="login.invalid" class="btn btn-primary btn-sm btn-add mt-3">
-                  <i>+</i>ADD NEW USER
-                </button>
-              </div>   
-            </div>
+                  <div class="row mb-3">
+                    <!--begin::Col-->
+                    <div class="col-4 fv-row fv-plugins-icon-container">
+                     <div> ADD NEW USER:</div>
 
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
-              </button>
-              <button
-                type="submit"
-                (click)="createGroup()"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-                [disabled]="login.invalid"
-                class="btn btn-primary"
-              >
-              <i style="font-size:20px" class="fa"> &#xf0c0;</i>&nbsp;&nbsp; CREATE
-              </button>
-            </div>
-          </form>
+                    </div>
+                    <div class="col-8 fv-row fv-plugins-icon-container">
+                      <ng-container formArrayName="users">
+                        <div
+                          *ngFor="
+                            let userControl of usersArray.controls;
+                            index as i
+                          "
+                        >
+                          <input
+                            class="form-control mb-3"
+                            [formControlName]="i"
+                            value=""
+                            placeholder="ADD NEW USER"
+                            required
+                          />
+                          <div
+                            *ngIf="isEmailNotUnique(userControl.value, i)"
+                            class="text-danger"
+                          >
+                            Email must be unique.
+                          </div>
+                        </div>
+                      </ng-container>
+
+                      <div
+                        class="fv-plugins-message-container invalid-feedback"
+                      >
+                        <small class="text-danger">Tax Name is required</small>
+                      </div>
+                    </div>
+                    <!--end::Col-->
+                  </div>
+
+
+                </div>
+              </div>
+
+              <div class="d-flex gap-2 ps-3 mb-3">
+                <div>
+                  <button type="button" class="btn btn-primary" (click)="createGroup()"
+                  data-bs-dismiss="modal"  [disabled]="login.invalid">
+                CREATE
+                  </button>
+                </div>
+                <div>
+                  <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" >
+                    Cancel
+                  </button>
+                </div>
+                <div>
+                  <button
+                  (click)="onAddUser()"
+                  [disabled]="login.invalid"
+                  class="btn btn-success"
+                >
+                  <b>+</b>&nbsp;ADD
+                </button>
+                </div>
+
+              </div>
+              
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-      <div class="navbar-nav pe-2">
-        <div
-        role='button'
-          class="nav-link active text-dark"
-          aria-current="page"
-          routerLink="/home/profile"
-          ><b><i class="bi bi-person-fill"></i>&nbsp;PROFILE</b></div
-        >
+
+      <div class="navbar-brand text-light" role="button" routerLink="/home/profile">
+        <b ><i class="bi bi-person-fill bg-"></i>&nbsp;PROFILE</b>
       </div>
       <button
         (click)="alertfun()"
