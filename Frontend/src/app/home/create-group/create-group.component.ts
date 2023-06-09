@@ -153,7 +153,7 @@ if(Number(this.addexpense?.value?.amount)>0)
     },
   });
 }else{
-  this.toastr.error( 'Somthing Wrong!');
+  this.toastr.error( 'Somthing Wrong!','minus amount not accepted');
 }
 
   }
