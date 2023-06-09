@@ -135,22 +135,27 @@ export class CreateGroupComponent implements OnInit {
     this.addexpense.controls['splitbetween'].setValue(list);
     this.addexpense.controls['paidBy'].setValue(localStorage.getItem('id'));
     this.addexpense.controls['groupid'].setValue(this.groupdata._id);
-    console.log(this.addexpense.value);
 
-    this.http.postData('/expense/create', this.addexpense?.value).subscribe({
-      next: (res) => {
-        this.toastr.success('Added .', 'Successfully!');
-        this.addexpense.reset({});
-        this.chekList = [];
-        console.log(res);
-        this.setexpense();
-      },
-      error: (err) => {
-        console.log(err.error);
+if(Number(this.addexpense?.value?.amount)>0)
+{
+  this.http.postData('/expense/create', this.addexpense?.value).subscribe({
+    next: (res) => {
+      this.toastr.success('Added .', 'Successfully!');
+      this.addexpense.reset({});
+      this.chekList = [];
+      console.log(res);
+      this.setexpense();
+    },
+    error: (err) => {
+      console.log(err.error);
 
-        this.toastr.error(err.error.error, 'Somthing Wrong!');
-      },
-    });
+      this.toastr.error(err.error.error, 'Somthing Wrong!');
+    },
+  });
+}else{
+  this.toastr.error( 'Somthing Wrong!');
+}
+
   }
 
   setexpense() {

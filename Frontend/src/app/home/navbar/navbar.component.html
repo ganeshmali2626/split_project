@@ -77,20 +77,11 @@
                             placeholder="ADD NEW USER"
                             required
                           />
-                          <div
-                            *ngIf="isEmailNotUnique(userControl.value, i)"
-                            class="text-danger"
-                          >
-                            Email must be unique.
-                          </div>
+
                         </div>
                       </ng-container>
 
-                      <div
-                        class="fv-plugins-message-container invalid-feedback"
-                      >
-                        <small class="text-danger">Tax Name is required</small>
-                      </div>
+
                     </div>
                     <!--end::Col-->
                   </div>
@@ -107,7 +98,7 @@
                   </button>
                 </div>
                 <div>
-                  <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" >
+                  <button type="button" (click)="login.reset()" class="btn btn-outline-secondary" data-bs-dismiss="modal" >
                     Cancel
                   </button>
                 </div>
@@ -122,7 +113,7 @@
                 </div>
 
               </div>
-              
+
             </form>
           </div>
         </div>

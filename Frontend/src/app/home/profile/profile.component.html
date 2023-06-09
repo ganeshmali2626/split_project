@@ -60,8 +60,8 @@
       </table>
       <form [formGroup]="edituserdetails" (ngSubmit)="collection()" *ngIf="!this.edit">
         <div class="row mb-3">
-          <label class="col-sm-4 col-form-label">Name :</label>
-          <div class="col-sm-6">
+          <th class="col-sm-3 col-form-label">Name :</th>
+          <div class="col-sm-7">
             <input
               type="text"
               [value]=""
@@ -73,8 +73,8 @@
           </div>
         </div>
         <div class="row mb-3">
-          <label class="col-sm-4 col-form-label">Phone :</label>
-          <div class="col-sm-6">
+          <th class="col-sm-3 col-form-label">Phone :</th>
+          <div class="col-sm-7">
             <input
               type="number"
               class="form-control"
@@ -85,8 +85,8 @@
           </div>
         </div>
         <div class="row mb-3">
-          <label class="col-sm-4 col-form-label">Email :</label>
-          <div class="col-sm-6">
+          <th class="col-sm-3 col-form-label">Email :</th>
+          <div class="col-sm-7">
             <input
               type="email"
               class="form-control"
@@ -98,7 +98,7 @@
         </div>
 
         <div class="row mb-3">
-          <div class="col-sm-8 offset-sm-4">
+          <div class="col-sm-7 offset-sm-3">
             <button
               type="submit"
               class="btn btn-primary"

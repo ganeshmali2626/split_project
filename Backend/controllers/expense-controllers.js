@@ -22,6 +22,8 @@ const addexpense= async(req,res,next)=>{
         return {userId:data.id,
             amount:parseFloat(req.body.amount/req.body.splitbetween.length).toFixed(2)}    
     })
+    const temp1=req.body.splitbetween.some(item => item.id ===  JSON.parse(req.body.paidBy))
+    console.log(temp1);
     console.log(req.body.groupid);
     const expense = new expensedata({
         description:req.body.description,
@@ -31,11 +33,20 @@ const addexpense= async(req,res,next)=>{
           splitBetween: req.body.splitbetween,
           splitAmounts: temp       
     })
-
-    await userdata.updateOne(
+    if(temp1){
+      await userdata.updateOne(
         { _id: expense.paidBy },
-        { $inc: { 'balance.credit': parseFloat(expense.amount- tempamount).toFixed(2) } }
+        
+        { $inc: { 'balance.credit': parseFloat(req.body.amount- tempamount).toFixed(2) } }
       );
+    }else{
+      await userdata.updateOne(
+        { _id: expense.paidBy },
+        
+        { $inc: { 'balance.credit': parseFloat(req.body.amount).toFixed(2) } }
+      );
+    }
+    
 
       expense.splitAmounts.map(async(item)=>{
         if(item.userId.toString()!==expense.paidBy.toString())
